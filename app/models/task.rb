@@ -1,16 +1,10 @@
 class Task < ActiveRecord::Base
-  self.inheritance_column = :task
 
-  def list
+  def self.list
     list = Task.all
      list.each do |l|
-      puts "#{l.id}. #{l.task}"
-        if l.completed == 1
-          print "done"
-        else
-          print " "
-        end
-     end
+      puts "#{l.id}. #{l.done} #{l.task} "
+      end
   end
 
   def self.add(task)
@@ -21,10 +15,13 @@ class Task < ActiveRecord::Base
     Task.destroy_all(id: id)
   end
 
-  def done(id)
-    task = Task.find(id)
-    task.completed = 1
-    task.save
+  def self.delete_all
+    Task.all.destroy
+  end
+
+  def self.mark_done(id)
+    task = Task.find_by(id: id)
+    task.update(done: "[X]")
   end
 
 end

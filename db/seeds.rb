@@ -2,12 +2,14 @@ require_relative '../app/models/task'
 
 require 'faker'
 
-module TaskImporter
+class TaskImporter
   def self.import
-    10.times do
+    3.times do
       Task.create(
         :task => Faker::Lorem.sentence
      )
      end
   end
 end
+
+TaskImporter.import
